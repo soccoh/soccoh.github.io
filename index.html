@@ -201,6 +201,7 @@
         };
       });
       app.controller('controller', ['$scope', 'sorter', function($scope, sorter) {
+        $scope.alwaystrue = true;
         $scope.list = sorter.list;
         var set = function() {
           var pair = sorter.get();
@@ -226,7 +227,7 @@
       <a class="navbar-brand" href="#">SSR Sort</a>
     </nav>
     <div class="row" ng-controller="controller">
-      <div ng-hide="true">
+      <div ng-hide="alwaystrue">
         <div ng-repeat"item in list"="">
           <img src="./img/{{item}}.png" alt="">
         </div>
