@@ -201,8 +201,11 @@
         };
       });
       app.controller('controller', ['$scope', 'sorter', function($scope, sorter) {
-        $scope.alwaystrue = true;
-        $scope.list = sorter.list;
+        var list = sorter.list;
+        for (var i = 0; i < list.length; ++i) {
+          var img = new Image();
+          img.src = './img/' + list[i] + '.png';
+        }
         var set = function() {
           var pair = sorter.get();
           $scope.lhs = pair.lhs;
@@ -227,11 +230,6 @@
       <a class="navbar-brand" href="#">SSR Sort</a>
     </nav>
     <div class="row" ng-controller="controller">
-      <div ng-hide="alwaystrue">
-        <div ng-repeat"item in list"="">
-          <img src="./img/{{item}}.png" alt="">
-        </div>
-      </div>
       <div ng-hide="sorted">
 
         <div class="col-xs-5 col-xs-offset-1">
