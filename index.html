@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>SSR sort</title>
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module('app', []);
+      app.factory('sorter', function() {
+        var ssrs = [
+          "［ステージオブマジック］島村卯月",
+          "［ぐうたら王国］双葉杏",
+          "［キャットパーティー］前川みく",
+          "［ホワイトウィッチ］三村かな子(期間限定)",
+          "［夢色クローバー］緒方智絵里(期間限定)",
+          "［自称・カンペキ］輿水幸子",
+          "［プリプリウサミン］安部菜々(期間限定)",
+          "［フィールマイハート］佐久間まゆ",
+          "［ミスティックエリクシル］一ノ瀬志希",
+          "［ユースフルロマンス］小日向美穂(期間限定)",
+          "［花舞うまほろば］小早川紗枝",
+          "［ローズフルール］櫻井桃華(期間限定)",
+          "［あったかハート］五十嵐響子",
+          "［アベニュー・モード］宮本フレデリカ",
+          "［ドリーミンブライド］前川みく(期間限定)",
+          "［マイ・フェアリーテイル］緒方智絵里",
+          "［ピースフルデイズ］島村卯月(シンデレラフェス期間限定)",
+          "［なまけものフェアリー］双葉杏(期間限定)",
+          "［スターティングデイズ］乙倉悠貴",
+          "［メイク★インパクト］早坂美玲",
+          "［インビテーション・ダイブ］一ノ瀬志希(期間限定)",
+          "［P.C.S］小日向美穂",
+          "［自称・スウィートヒロイン］輿水幸子(シンデレラフェス期間限定)",
+          "［トリート・オア・トリート］佐久間まゆ(期間限定)",
+          "［ドルチェ・クラシカ］三村かな子",
+          "［ディアマイレディ］櫻井桃華",
+          "［リュミエール・エトワール］宮本フレデリカ(期間限定)",
+          "［エアリアルメロディア］水本ゆかり",
+          "［ウサミン・ザ・シークレット］安部菜々(シンデレラフェス期間限定)",
+          "［華ほころびる宴］小早川紗枝(期間限定)",
+          "［ラブ！ストレート］中野有香",
+          "［Ring♪Ring♪フィーリン］椎名法子",
+          "［ドラマティック・ナイト］五十嵐響子(期間限定)",
+          "［出会えた憧憬］関裕美",
+          "［カム・ウィズミー！］乙倉悠貴(期間限定)",
+          "［ラブモリ☆パーリィー］藤本里奈",
+          "［ようせいのこ］遊佐こずえ",
+          "［えにしの結び手］道明寺歌鈴(期間限定)",
+          "［わきわきわんだほー］棟方愛海",
+          "［アヴァンチュール・シャト］前川みく(シンデレラフェス期間限定)",
+          "［自称・パーリーピーポー］輿水幸子(期間限定)",
+          "［手折られぬ花］白菊ほたる",
+          "［太陽より熱く！］中野有香",
+          "［メモリアルデイズ］今井加奈",
+          "［ステージオブマジック］渋谷凛",
+          "［薔薇の闇姫］神崎蘭子",
+          "［ノーブルヴィーナス］新田美波",
+          "［ヒート＆ビート］多田李衣菜(期間限定)",
+          "［ブライトメモリーズ］鷺沢文香",
+          "［クリスタルスノー］アナスタシア(期間限定)",
+          "［エンドレスナイト］速水奏",
+          "［ラグジュアリーメモリー］川島瑞樹(期間限定)",
+          "［オーバー・ザ・レインボー］神谷奈緒",
+          "［夜風の誘い］高垣楓(期間限定)",
+          "［煌めきのひととき］北条加蓮",
+          "［≪偶像≫のフラグメント］二宮飛鳥",
+          "［はじめての表情］橘ありす(期間限定)",
+          "［センリツノヨル］白坂小梅",
+          "［運命の待ち人］神崎蘭子(期間限定)",
+          "［夜色の暁風］塩見周子",
+          "［オーバー・マイセルフ］渋谷凛(シンデレラフェス期間限定)",
+          "［ルージュクチュール］三船美優",
+          "［夏色の南風］新田美波(期間限定)",
+          "［澄みきった世界］上条春菜",
+          "［密やかな饗宴］鷺沢文香(期間限定)",
+          "［星巡る物語］アナスタシア",
+          "［茜色の彩り］高垣楓(シンデレラフェス期間限定)",
+          "［ただひとつの器］藤原肇",
+          "［ソング・フォー・ライフ］北条加蓮(期間限定)",
+          "［森のものがたり］森久保乃々",
+          "［ドレスアップナイト］神谷奈緒(期間限定)",
+          "［ネクスト☆ページ］荒木比奈",
+          "［うつつの華模様］塩見周子(シンデレラフェス期間限定)",
+          "［インサイト・エクステンド］八神マキノ",
+          "［パレス・オブ・ファンタジア］二宮飛鳥(期間限定)",
+          "［目をあけてみる夢］多田李衣菜",
+          "［こころ、酔わせて］三船美優(期間限定)",
+          "［SOUND A ROUND］松永涼",
+          "［エンド・オブ・ザ・ブルー］速水奏(シンデレラフェス期間限定)",
+          "［ひみつの小夜曲］佐城雪美",
+          "［ヨモスガラ・パーティー］白坂小梅(期間限定)",
+          "［ステップトゥーミライ］佐々木千枝",
+          "［エターナルブルーム］渋谷凛(期間限定)",
+          "［コマンドー・オブ・ステージ］大和亜季",
+          "［真剣・一閃］脇山珠美",
+          "［ブルー・ホライゾン］塩見周子",
+          "［アンビバレント・アクト］川島瑞樹",
+          "［ステージオブマジック］本田未央",
+          "［グレイトプレゼント］諸星きらり",
+          "［パンプキンパーティ］十時愛梨(期間限定)",
+          "［キラデコ☆パレード］城ヶ崎莉嘉",
+          "［バーニングプレゼント］日野茜(期間限定)",
+          "［ともだちたくさん］市原仁奈",
+          "［ハート★オーバーフロー］城ヶ崎美嘉(期間限定)",
+          "［フルスイング☆エール］姫川友紀",
+          "［ハッピーホイップ］赤城みりあ(期間限定)",
+          "［てづくりのしあわせ］高森藍子",
+          "［マッシュアップ★ボルテージ］星輝子",
+          "［拳火上等］向井拓海(期間限定)",
+          "［夢みるプリンセス］喜多日菜子",
+          "［エモーショナルビート］木村夏樹(期間限定)",
+          "［わだつみの導き手］依田芳乃",
+          "［はつらつハーヴェスト］及川雫",
+          "［ワンダーエンターテイナー］本田未央(シンデレラフェス期間限定)",
+          "［サマータイム☆ハイ］大槻唯(期間限定)",
+          "［束ねた気持ち］相葉夕美",
+          "［めろめろサマー］諸星きらり(期間限定)",
+          "［カップオブラブ］十時愛梨",
+          "［セーシュンエナジー］堀裕子",
+          "［グロリアス★グロウ］城ヶ崎美嘉(シンデレラフェス期間限定)",
+          "［ぱーりぃー★ひゃっはー］星輝子(期間限定)",
+          "［くのいちのいろは］浜口あやめ",
+          "［あたたかな居場所］高森藍子(期間限定)",
+          "［はぁとトゥハート］佐藤心",
+          "［ひまわりサニーデイ］龍崎薫",
+          "［ソル・パライソ］大槻唯(シンデレラフェス期間限定)",
+          "［ことほぎの祈り］依田芳乃(期間限定)",
+          "［メイクミー・キスユー］赤城みりあ",
+          "［重ねた花びら］相葉夕美(期間限定)",
+          "［ハイテンションスマッシュ］喜多見柚",
+          "［セクシーBANG☆BANG］片桐早苗",
+          "［サークル☆オブ☆フレンズ］城ヶ崎莉嘉(期間限定)",
+          "［ポジティブパッション］日野茜",
+          "［レッツゴー☆パレード］姫川友紀(期間限定)",
+          "［こぶし・紅］村上巴",
+          "［FEEL SO FREE］木村夏樹",
+          "［ラブ・モゥ・スイート］及川雫(期間限定)",
+          "［ビビッド★エゴイスト］的場梨沙",
+          "［本日の主役］難波笑美"
+        ];
+
+        for(var i = ssrs.length - 1; i > 0; --i){
+            var r = Math.floor(Math.random() * (i + 1));
+            var tmp = ssrs[i];
+            ssrs[i] = ssrs[r];
+            ssrs[r] = tmp;
+        }
+
+        ssrs = ssrs.map(function(x) { return [x]; });
+        var tmp = [[]];
+        var lhs = null;
+        var rhs = null;
+
+        var isSorted = function() { return ssrs.length == 1; };
+
+        function get () {
+          if (isSorted()) { return {lhs: null, rhs:null}; }
+          lhs = ssrs[0].shift(),
+          rhs = ssrs[1].shift()
+          return {lhs: lhs, rhs: rhs};
+        };
+
+        var less = function(b) {
+          if (b) {
+            tmp[tmp.length - 1].push(lhs);
+            lhs = null;
+            ssrs[1].unshift(rhs);
+          } else {
+            tmp[tmp.length - 1].push(rhs);
+            rhs = null;
+            ssrs[0].unshift(lhs);
+          }
+          if (ssrs[0].length == 0 || ssrs[1].length == 0) {
+            tmp[tmp.length - 1] = tmp[tmp.length - 1].concat(ssrs[0], ssrs[1]);
+            ssrs.shift();
+            ssrs.shift();
+            if (ssrs.length >= 2) {
+              tmp.push([]);
+            } else {
+              ssrs = tmp.concat(ssrs);
+              tmp = [[]];
+            }
+          }
+        };
+
+        var result = function() {
+          return isSorted() ? ssrs[0] : null;
+        }
+
+        return {
+          isSorted: isSorted,
+          get: get,
+          less: less,
+          result: result
+        };
+      });
+      app.controller('controller', ['$scope', 'sorter', function($scope, sorter) {
+        var set = function() {
+          var pair = sorter.get();
+          $scope.lhs = pair.lhs;
+          $scope.rhs = pair.rhs;
+          $scope.sorted = sorter.isSorted();
+          $scope.result = function() { return sorter.result(); };
+        };
+        set();
+        $scope.clickLhs = function() {
+          sorter.less(true);
+          set();
+        };
+        $scope.clickRhs = function() {
+          sorter.less(false);
+          set();
+        };
+      }]);
+    </script>
+  </head>
+  <body ng-app="app">
+    <nav class="navbar navbar-default">
+      <a class="navbar-brand" href="#">SSR Sort</a>
+    </nav>
+    <div class="row" ng-controller="controller">
+      <div ng-hide="sorted">
+
+        <div class="col-xs-5 col-xs-offset-1">
+          <div class="thumbnail" ng-click="clickLhs()">
+            <img ng-src="./img/{{lhs}}.png" alt="" class="">
+            <div class="caption"><strong>{{lhs}}</strong></div>
+          </div>
+        </div>
+
+        <div class="col-xs-5">
+          <div class="thumbnail" ng-click="clickRhs()">
+            <img src="./img/{{rhs}}.png" alt="" class="">
+            <div class="caption"><strong>{{rhs}}</strong></div>
+          </div>
+        </div>
+
+      </div>
+      <div ng-show="sorted">
+        <div class="list-group">
+          <div ng-repeat="item in result()" class="">
+            <div class="col-xs-6 col-xs-offset-3">
+              <div class="thumbnail">
+                <img src="./img/{{item}}.png" alt="" class="">
+                <div class="caption"><strong>{{item}}</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
