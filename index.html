@@ -202,6 +202,7 @@
       });
       app.controller('controller', ['$scope', 'sorter', function($scope, sorter) {
         var list = sorter.list;
+        console.log(list.length);
         for (var i = 0; i < list.length; ++i) {
           var img = new Image();
           img.src = './img/' + list[i] + '.png';
